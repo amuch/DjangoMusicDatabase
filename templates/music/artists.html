@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Artists{% endblock %}
+
+{% block content %}
+<h2>Artists</h2>
+<br>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Artist</th>
+			<th>Albums</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for artist in artists %}
+			<tr>
+				<td>
+					{{ artist.name }}
+				</td>
+				<td>
+					{% for album in albums %}
+						{% if artist == album.artist %}
+							<a href="{{ album.get_absolute_url }}">
+								<img src="{{ album.cover.url }}" alt="{{ album.title }}" width="50px">
+							</a>
+						{% endif %}
+					{% endfor %}
+				</td>
+				<td>
+					<a href="{{ artist.get_absolute_url }}"> All songs by {{ artist.name }}</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

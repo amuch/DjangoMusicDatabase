@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{{ album.name }}{% endblock %}
+{% block content %}
+
+<h2> {{ album.title }} by {{ album.artist }}</h2>
+
+{%  if album.cover %}
+	<img src="{{ album.cover.url }}" alt="{{ album.title }}" width="200px">
+{% endif %}
+
+<h3> Released {{ album.release }} </h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Track</th>
+			<th>Title</th>
+			<th>URL</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for song in songs %}
+			<tr>
+				{% if song.track == 0 %}
+					<td>N/A</td>
+				{% else %}
+					<td>{{ song.track }}</td>
+				{% endif %}
+				<td>{{ song.title }}</td>
+				<td>
+					<a href="{{ song.song.url }}" class="btn btn-primary btn-sm">
+						Play
+					</a>
+					</td>
+			</tr>
+		{% empty %}
+		<tr>
+			<td> No songs have been added for {{ album.title }} yet.</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
